@@ -11,6 +11,11 @@
 #include "framework.h"
 #include <cassert>
 
-#define TIP(x) MessageBox(0, x, L"danmuB模组提示", MB_OK);
+#define TIP(x) MessageBox(0, x, L"IsaacHook模组提示", MB_OK);
+
+namespace Patcher {
+	class PatchContext;
+}
+extern Patcher::PatchContext* patchCtx;
 
 #endif //PCH_H
