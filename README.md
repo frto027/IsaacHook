@@ -1,78 +1,36 @@
 # isaac-hook
 
-此mod通过hook技术获取/修改游戏内部逻辑，可用于实现超出mod接口能力的逻辑，游戏需要以`--luadebug`方式启动。
+This mod use hook tech to obtain/modify game internal logic, can do things beyond the lua api. The game should boot with `--luadebug` parameter.
 
-# 如何构建
+[中文README](README.zh.md)
 
-使用VS2022打开解决方案直接构建。游戏是32位程序，所以请构建x86版本。
+# How to build
 
+Use VS2022 open `isaac-hook.sln`, build with `x86/Release`.
 
-# 接口说明
+If you build with `X86/Debug`, it is okay. A copy file may failed, you can fix the path for your game in ProjectSetthings or just ignore it.
 
-该mod新增全局变量`IsaacHook`。
+Rename the `isaac-hook.dll` to `isaac-hook.bin`, and copy to the `lib` folder inside the mod.
 
-## 钩子函数
+# API
 
-```
-IsaacHook.setHook(address:uint32, callback:function(reg)->void)
-```
-address是相对于isaac-ng.exe偏移的内存地址。在游戏执行到此位置时，会调用callback函数。
+Global variable `IsaacHook` is added.
 
-以下属性均为32位无符号整数，可读取或修改。
+Refer to: [API](hook/Api.md), [ConsoleCommands](hook/ConsoleCommands.md)
+
+# HookExample
+
 ```lua
-reg.eax
-reg.ebx
-reg.ecx
-reg.edx
-reg.esi
-reg.edi
-reg.esp
-reg.ebp
-reg.eflags
+IsaacHook.setHook(
+	IsaacHook.getFuncAddr(Game():GetItemPool().GetPoolForRoom), 
+	function(r) 
+		IsaacHook.writeInt32(r.esp+4, RoomType.ROOM_BOSS) 
+	end
+	)
 ```
 
-## 类型转换函数
+# C Library
 
-主要用于快速处理浮点数据。
-
-```
-int = IsaacHook.toInt32(float)
-float = IsaacHook.toFloat32(int)
---[[
-	e.g.
-	Speed = IsaacHook.toInt32(reg.eax)
-	Speed = Speed * 0.5
-	reg.eax = IsaacHook.toFloag32(Speed)
-]]
-
-int,int = IsaacHook.toInt64(double)
-double = IsaacHook.toFloat64(int,int)
---[[
-	e.g.
-	Speed = IsaacHook.toInt32(reg.eax, reg.ebx)
-	Speed = Speed * 0.5
-	reg.eax, reg.ebx = IsaacHook.toFloag32(Speed)
-]]
-```
-
-## 内存辅助函数
-
-```
-IsaacHook.getFuncAddr(api_function)
-e.g.
-	local GetPoolForRoomFunctionAddr = IsaacHook.getFuncAddr(Game():GetItemPool().GetPoolForRoom), 
-```
-
-`getFuncAddr` 用于获取游戏库函数的地址（相对于isaac-ng.exe偏移的内存地址）。返回值为32位无符号整数
-
-```
-uint32 IsaacHook.readInt32(addr)
-IsaacHook.writeInt32(addr,value)
-```
-
-用于内存读写，`addr`和`value`均为32位无符号整数。
-
-# c库引用说明
-
-- 使用lua对接游戏lua系统
-- 使用Patcher完成hook操作
+- Lua(header file only)
+- [Patcher](https://github.com/BradDorney/Patcher)
+- [capstone](https://github.com/capstone-engine/capstone/tree/v5)

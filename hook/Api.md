@@ -1,3 +1,5 @@
+------
+
 ```
 IsaacHook.setHook(uint32 address, callback)
 ```
@@ -17,17 +19,17 @@ you can read and modify the following variables inside callback function:
 
 ------
 ```
-int      = IsaacHook.toInt32(float)
-float    = IsaacHook.toFloat32(int)
+uint32      = IsaacHook.toInt32(float)
+float       = IsaacHook.toFloat32(uint32)
 ```
 ------
 ```
-int, int = IsaacHook.toInt64(double)
-double   = IsaacHook.toFloat64(int,int)
+uint32, uint32 = IsaacHook.toInt64(double)
+double         = IsaacHook.toFloat64(uint32,uint32)
 ```
 ------
 ```
-IsaacHook.getFuncAddr(api_function)
+uint32 = IsaacHook.getFuncAddr(api_function)
 ```
 e.g.
 local funcAddr = IsaacHook.getFuncAddr(EntityPlayer.__class.EvaluateItems)
@@ -36,7 +38,7 @@ The `api_function` MUST be the original game function object.  NOT compatable wi
 
 ------
 ```
-IsaacHook.getObjectAddr(object)
+uint32 = IsaacHook.getObjectAddr(object)
 ```
 e.g.
 local player_addr = IsaacHook.getObjectAddr(Isaac.GetPlayer(0))
