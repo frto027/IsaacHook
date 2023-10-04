@@ -6,6 +6,8 @@ This mod use hook tech to obtain/modify game internal logic, can do things beyon
 
 # How to build
 
+In most cases, lua can do everything, so there's no need to build. If you want to build the hook library, follow the steps below.
+
 Use VS2022 open `isaac-hook.sln`, build with `x86/Release`.
 
 If you build with `X86/Debug`, it is okay. A copy file may failed, you can fix the path for your game in ProjectSetthings or just ignore it.
@@ -19,6 +21,8 @@ Global variable `IsaacHook` is added.
 Refer to: [API](hook/Api.md), [ConsoleCommands](hook/ConsoleCommands.md)
 
 # HookExample
+
+The following lua program hijacks the internal function, and changes every item pool to Boss pool. Try `spawn 5.100` and you will always get items from ROOM_BOSS.
 
 ```lua
 IsaacHook.setHook(

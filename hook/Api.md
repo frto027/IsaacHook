@@ -17,6 +17,8 @@ you can read and modify the following variables inside callback function:
 - reg.ebp
 - reg.eflags
 
+The function uses Patcher library to rewrite the instructions at `address`, and calls `callback` before the instruction. don't hook two instructions less than 5 bytes apart, I don't know what will happen.
+
 ------
 ```
 uint32      = IsaacHook.toInt32(float)
