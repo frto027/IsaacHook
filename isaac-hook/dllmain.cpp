@@ -13,11 +13,11 @@ BOOL APIENTRY DllMain( HMODULE hModule,
         //我们可以在这里做初始化和清理工作，但我们不在这里做，而是在open函数中做。
     case DLL_PROCESS_ATTACH:
         //MessageBox(NULL, L"ATTACH", L"ATTACH", MB_OK);
-        patchCtx = new Patcher::PatchContext();
+        //patchCtx = new Patcher::PatchContext();
         break;
     case DLL_PROCESS_DETACH:
         //MessageBox(NULL, L"DETATCH", L"DETATCH", MB_OK);
-        delete patchCtx;
+        //delete patchCtx;
         break;
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
