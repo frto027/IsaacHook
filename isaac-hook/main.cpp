@@ -10,8 +10,6 @@ using namespace Patcher;
 
 #define VERSION 0.1
 
-int c_module_reference_count = 0;
-
 extern "C" {
     __declspec(dllexport) int open(lua_State* L);
 }
@@ -331,10 +329,6 @@ struct {
 
 
 int open(lua_State * L) {
-    if (c_module_reference_count) {
-        // we don't need to reinit the danmuB object...
-        return 0;
-    }
     LuaState luastate(L);
 
     lua_createtable(L, 0, 10); // the danmuB object
@@ -358,7 +352,6 @@ int open(lua_State * L) {
     lua_pushnumber(L, VERSION);
     lua_settable(L, -3);
 
-    c_module_reference_count++;
     lua_setglobal(L, "IsaacHook");
 
     //do some init works
@@ -368,21 +361,6 @@ int open(lua_State * L) {
     sprintf_s(buff, sizeof(buff), "IsaacHook v%.1f made by @frto027 started.(isaac-ng module at: %p)\n", VERSION, (void *)IsaacNgBaseAddress);
 
     Isaac::ConsoleOutput(buff);
-
-    return 0;
-}
-
-int close_danmuB(lua_State* L) {
-    LuaState luastate(L);
-
-    c_module_reference_count--;
-    if (c_module_reference_count == 0) {
-        Isaac::ConsoleOutput("danmuB service stoped.\n");
-        //hook_cleanup();
-    }
-    else if (c_module_reference_count < 0) {
-        Isaac::ConsoleOutput("something bad happened(reference count error).\n");
-    }
 
     return 0;
 }
