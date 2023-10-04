@@ -8,16 +8,8 @@ local mod_path = GetCurrentModPath()
 
 local addr_hooks = {}
 
-local function post_init_hool_lib()
+local function post_init_hook_lib()
 	local original_hook = IsaacHook.setHook
-	--[[
-		IsaacHook.setHook({address=0x1234, function(regs)
-			regs.eax = regs.ebx
-
-			TODO:arg%d
-			....
-		end})
-	]]
 	IsaacHook.setHook = function(addr, callback)
 		-- local addr, callback = args["address"], args["callback"]
 		if addr == nil then return "invalid argument" end
@@ -48,9 +40,10 @@ if mod_path then
 	local hook_init = package.loadlib(GetCurrentModPath() .. "lib/isaac-hook.bin","open")
 	if hook_init then
 		hook_init()
-		post_init_hool_lib()
+		post_init_hook_lib()
+
+		require("hook")
 	end
 else
 	Isaac.ConsoleOutput("Error: IsaacHook need REPENTANCE and start with --luadebug.\n")
 end
-

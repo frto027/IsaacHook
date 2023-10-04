@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>!isaac-hook</name>
+    <directory>isaac-hook</directory>
+    <id>3045234793</id>
+    <description>This MOD uses hook technology to change the existing logic of the game. With this MOD you can do things beyond the lua interface. 
+
+This mod requires using --luadebug to start the game, and the source code will be released soon. However, turning on luadebug gives the mod access to your computer, which is different from the normal isaac mod. So please use trusted mods, otherwise there are RISKS.
+
+The mod provides APIs, and will do nothing until you input commands via DebugConsole or some mods calls its interface.
+
+See the markdown file `ConsoleCommands.md` for users or `Api.md` for mod developers.
+
+Note that calling the mod API in an inappropriate way may cause the game to crash and cause irreversible modifications. Therefore, even if the mod has cleaned itself up, it is still recommended to restart the game immediately after disable the mod (especially before the Daily Run).
+
+The mod supports all game version, but some commands only supports for v1.7.9b.
+
+This mod is still under development and more features will be added in the future, but the basic API does not seem to change in the future.
+
+e.g.
+the following code hooks `GetPoolForRoom`, and changes the first argument to ROOM_BOSS. After that, when the game tries to get item_pool from a room type, it will always obtain item_pool of the BOSS room.
+[code]
+IsaacHook.setHook(
+	IsaacHook.getFuncAddr(Game():GetItemPool().GetPoolForRoom), 
+	function(r) 
+		IsaacHook.writeInt32(r.esp+4, RoomType.ROOM_BOSS) 
+	end
+	)
+[/code]</description>
+    <version>1.2</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+</metadata>
