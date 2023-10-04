@@ -32,5 +32,5 @@ IsaacHook.setHook(
 # C Library
 
 - Lua(header file only)
-- [Patcher](https://github.com/BradDorney/Patcher)
+- [Patcher](https://github.com/BradDorney/Patcher) The library has been modified
 - [capstone](https://github.com/capstone-engine/capstone/tree/v5)
