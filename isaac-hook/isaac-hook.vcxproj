@@ -104,7 +104,7 @@
       </DelayLoadDLLs>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y $(OutDir)$(TargetName)$(TargetExt) "E:\SteamLibrary\steamapps\common\The Binding of Isaac Rebirth\mods\isaac-hook\lib\$(TargetName).bin"</Command>
+      <Command>copy /Y $(OutDir)$(TargetName)$(TargetExt) "E:\SteamLibrary\steamapps\common\The Binding of Isaac Rebirth\mods\isaac_hook\lib\$(TargetName).bin"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>将生成的dll打补丁至游戏mod中</Message>
@@ -120,7 +120,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Patcher\imported\capstone\include;$(SolutionDir)capstone\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)capstone\include\capstone;$(SolutionDir)capstone\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
