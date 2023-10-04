@@ -52,7 +52,7 @@ end
 IsaacHookProxy:AddCallback(ModCallbacks.MC_POST_RENDER, function()
     if not hook_enabled then return end
     x,y = 70, 70
-    D("IsaacHook mod by @frto027. For the BOI v1.7.9b")
+    D("IsaacHook mod. For the BOI v1.7.9b")
     for _,v in pairs(Toggles) do
         if v.state then
             v.fcallback()
@@ -60,6 +60,8 @@ IsaacHookProxy:AddCallback(ModCallbacks.MC_POST_RENDER, function()
     end
 end)
 
+IsaacHook.RegisterToggle = RegisterToggle
+IsaacHook.DisplayLine = D
 -------------------------------------------------------------------------
 
 RegisterToggle('damo', nil, function()
@@ -97,8 +99,7 @@ RegisterToggle('d8', nil, function()
     end
 end)
 
-RegisterToggle('redstew', function()
-end, function()
+RegisterToggle('redstew', nil, function()
     local offset = 0x1D8C
     for i = 0, Game():GetNumPlayers() - 1 do
       local player = Isaac.GetPlayer(i)

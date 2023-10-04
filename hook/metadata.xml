@@ -3,9 +3,13 @@
     <name>!isaac-hook</name>
     <directory>isaac-hook</directory>
     <id>3045234793</id>
-    <description>This MOD uses hook technology to change the existing logic of the game. With this MOD you can do things beyond the lua interface. 
+    <description>The mod mainly made for developers and game testers.
 
-This mod requires using --luadebug to start the game, and the source code will be released soon. However, turning on luadebug gives the mod access to your computer, which is different from the normal isaac mod. So please use trusted mods, otherwise there are RISKS.
+This MOD uses hook technology to change the existing logic of the game. With this MOD you can do things beyond the lua interface.  Though you probably won't be able to do much if you don't know much about binary. 
+
+This mod requires using --luadebug to start the game. However, turning on luadebug gives the mod access to your computer, which is different from the normal isaac mod. [u]So please use trusted mods, otherwise there are RISKS.[/u]
+
+Source code: https://github.com/frto027/IsaacHook
 
 The mod provides APIs, and will do nothing until you input commands via DebugConsole or some mods calls its interface.
 
@@ -27,7 +31,7 @@ IsaacHook.setHook(
 	end
 	)
 [/code]</description>
-    <version>1.2</version>
+    <version>1.3</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
 </metadata>
