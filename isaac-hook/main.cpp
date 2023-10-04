@@ -301,6 +301,17 @@ int get_func_addr(lua_State* L) {
     return 1;
 }
 
+int get_object_addr(lua_State* L) {
+    if (lua_isuserdata(L, 1)) {
+        uint32_t * data = (uint32_t *)lua_touserdata(L, 1);
+        lua_pushinteger(L, data[1]);
+    }
+    else {
+        lua_pushnil(L);
+    }
+    return 1;
+}
+
 struct {
     const char* name;
     lua_CFunction func;
@@ -313,6 +324,7 @@ struct {
     {"readInt32", read_int32},
     {"writeInt32", write_int32},
     {"getFuncAddr", get_func_addr},
+    {"getObjectAddr", get_object_addr},
     {NULL, NULL}
 };
 
