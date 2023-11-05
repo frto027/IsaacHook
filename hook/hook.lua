@@ -108,3 +108,65 @@ RegisterToggle('redstew', nil, function()
     end  
 end)
 
+local rollcard_str = "Rollcard: nop"
+RegisterToggle('rollcard', function()
+    IsaacHook.setHook(0x301DA0, function(reg)
+        local x = "Rollcard:"
+        for i = 1, 5 do
+            local v = IsaacHook.readInt32(reg.esp + 4 * i)
+            x = x .. " " .. tostring(v)
+        end
+        rollcard_str = x
+        Isaac.ConsoleOutput(rollcard_str .. "\n")
+    end)
+end, function()
+    D(rollcard_str)
+end)
+
+local getpool_str = "ItemPool::GetCollectible: nop"
+RegisterToggle('getpool', function()
+    IsaacHook.setHook(0x301230, function(reg)
+        local item_pool_id = IsaacHook.readInt32(reg.esp + 0x4)
+        local item_pool_name = ""
+        for i,j in pairs(ItemPoolType) do
+            if j == item_pool_id then
+                item_pool_name = i
+            end
+        end
+        getpool_str = "ItemPool::GetCollectible: PoolType=" .. tostring(item_pool_id) .. " " .. item_pool_name
+        Isaac.ConsoleOutput(getpool_str .. "\n")
+    end)
+end, function()
+    D(getpool_str)
+end)
+
+
+local removepoll_str = "ItemPool::RemoveCollectible: nop"
+RegisterToggle('removepool', function()
+    IsaacHook.setHook(0x301BD0, function(reg)
+        removepoll_str = "ItemPool::RemoveCollectible: " .. tostring(IsaacHook.readInt32(reg.esp + 0x4))
+        Isaac.ConsoleOutput(removepoll_str .. "\n")
+    end)
+end, function()
+    D(removepoll_str)
+end)
+
+local gettrinket_str = "ItemPool::GetTrinket: nop"
+RegisterToggle('gettrinket', function()
+    IsaacHook.setHook(0x301880, function(reg)
+        gettrinket_str = "ItemPool::GetTrinket: DontAdvanceRNG=" .. tostring(IsaacHook.readInt32(reg.esp + 0x4))
+        Isaac.ConsoleOutput(gettrinket_str .. "\n")
+    end)
+end, function()
+    D(gettrinket_str)
+end)
+
+local useactive_str = "EntityPlayer::UseActiveItem: nop"
+RegisterToggle('active', function()
+    IsaacHook.setHook(0x1a1360, function(reg)
+        useactive_str = "EntityPlayer::UseActiveItem: " .. tostring(IsaacHook.readInt32(reg.esp + 0x8))
+        Isaac.ConsoleOutput(useactive_str .. "\n")
+    end)
+end, function()
+    D(useactive_str)
+end)
